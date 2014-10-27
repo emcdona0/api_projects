@@ -19,8 +19,16 @@ the_longitude = gets.chomp
 #   address_to_coords.rb to read from a remote API and parse
 #   the results.
 
+url_of_data_we_want = "https://api.forecast.io/forecast/21fc8454b0c2983829ad085802896e7e/"+the_latitude+","+the_longitude
+raw_data = open(url_of_data_we_want).read
+parsed_data = JSON.parse(raw_data)
+
+the_temperature = parsed_data["currently"]["temperature"]
+the_hour_outlook = parsed_data["hourly"]["data"][0]["summary"]
+the_day_outlook = parsed_data["daily"]["data"][0]["summary"]
+
 # Ultimately, we want the following line to work when uncommented:
 
-# puts "The current temperature at #{the_latitude}, #{the_longitude} is #{the_temperature} degrees."
-# puts "The outlook for the next hour is: #{the_hour_outlook}"
-# puts "The outlook for the next day is: #{the_day_outlook}"
+puts "The current temperature at #{the_latitude}, #{the_longitude} is #{the_temperature} degrees."
+puts "The outlook for the next hour is: #{the_hour_outlook}"
+puts "The outlook for the next day is: #{the_day_outlook}"
